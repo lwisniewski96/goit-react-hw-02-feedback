@@ -1,71 +1,25 @@
-// import React, { Component } from 'react';
-
-// class Widget extends Component {
-//   state = {
-//     good: 0,
-//     neutral: 0,
-//     bad: 0,
-//   };
-
-//   handleFeedbackClick = feedbackType => {
-//     this.setState(prevState => ({
-//       [feedbackType]: prevState[feedbackType] + 1,
-//     }));
-//   };
-
-//   countTotalFeedback = () => {
-//     const { good, neutral, bad } = this.state;
-//     return good + neutral + bad;
-//   };
-
-//   countPositiveFeedbackPercentage = () => {
-//     const { good } = this.state;
-//     const totalFeedback = this.countTotalFeedback();
-//     return totalFeedback === 0 ? 0 : (good / totalFeedback) * 100;
-//   };
-
-//   render() {
-//     const { good, neutral, bad } = this.state;
-//     const totalFeedback = this.countTotalFeedback();
-//     const positiveFeedbackPercentage = this.countPositiveFeedbackPercentage();
-
-//     return (
-//       <div>
-//         <p>Please leave feedback</p>
-//         <button type="button" onClick={() => this.handleFeedbackClick('good')}>
-//           Good
-//         </button>
-//         <button
-//           type="button"
-//           onClick={() => this.handleFeedbackClick('neutral')}
-//         >
-//           Neutral
-//         </button>
-//         <button type="button" onClick={() => this.handleFeedbackClick('bad')}>
-//           Bad
-//         </button>
-
-//         <div>
-//           <h2>Statistics</h2>
-//           <p>Good: {good}</p>
-//           <p>Neutral: {neutral}</p>
-//           <p>Bad: {bad}</p>
-//           <p>Total: {totalFeedback}</p>
-//           <p>Positive Feedback: {positiveFeedbackPercentage}%</p>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
-// export default Widget;
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class App extends Component {
+  static propTypes = {
+    initialGood: PropTypes.number,
+    initialNeutral: PropTypes.number,
+    initialBad: PropTypes.number,
+  };
+
+  static defaultProps = {
+    initialGood: 0,
+    initialNeutral: 0,
+    initialBad: 0,
+  };
+
   state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+    good: this.props.initialGood,
+    neutral: this.props.initialNeutral,
+    bad: this.props.initialBad,
+    contacts: [],
+    name: '',
   };
 
   handleFeedbackClick = feedbackType => {
@@ -142,7 +96,7 @@ const Statistics = ({ good, neutral, bad, total, positivePercentage }) => (
     <p>Neutral: {neutral}</p>
     <p>Bad: {bad}</p>
     <p>Total: {total}</p>
-    <p>Positive Feedback Percentage: {positivePercentage}%</p>
+    <p>Positive Feedback Percentage: {positivePercentage.toFixed(2)}%</p>
   </div>
 );
 
